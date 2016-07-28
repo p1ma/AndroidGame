@@ -3,7 +3,10 @@ package p1ma.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import p1ma.game.MyGame;
 
@@ -14,14 +17,26 @@ public class SplashScreen extends ScreenAdapter{
 
     private MyGame game;
     private SpriteBatch spriteBatch;
+    private Texture image;
     private long timer;
-    private static long duration = 2000; // 2000 ms = 2s
+    private static long duration = 200000; // 2000 ms = 2s
+
+    // camera's attributes
+    private OrthographicCamera camera;
+    private StretchViewport viewport;
 
     public SplashScreen(MyGame myGame){
         super();
         this.game = myGame;
         this.spriteBatch = new SpriteBatch();
+        this.image = new Texture(Gdx.files.internal("images/badlogic.jpg"));
         this.timer = 0;
+
+        this.camera = new OrthographicCamera();
+        this.viewport = new StretchViewport(GameScreen.WORLD_WIDTH,GameScreen.WORLD_HEIGHT,camera);
+        this.viewport.apply();
+
+        this.camera.position.set((camera.viewportWidth / 2),(camera.viewportHeight / 2),0);
     }
 
     @Override
@@ -33,6 +48,8 @@ public class SplashScreen extends ScreenAdapter{
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
+        viewport.update(width, height);
+        camera.position.set((camera.viewportWidth / 2),(camera.viewportHeight / 2), 0);
     }
 
     @Override
@@ -44,11 +61,14 @@ public class SplashScreen extends ScreenAdapter{
     @Override
     public void render(float delta) {
         super.render(delta);
+        camera.update();
         long time = System.currentTimeMillis();
         if(time <= this.timer) {
-            Gdx.gl.glClearColor(0, 1, 0, 1); // R, G, B, alpha
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            time = System.currentTimeMillis();
+            //drawing part
+            spriteBatch.setProjectionMatrix(camera.combined);
+            spriteBatch.begin();
+            spriteBatch.draw(this.image,0,0,GameScreen.WORLD_WIDTH, GameScreen.WORLD_HEIGHT);
+            spriteBatch.end();
         }else {
             System.out.println("SplashScreen's end... Menu inc");
             this.game.setMenuScreen();

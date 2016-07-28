@@ -11,6 +11,9 @@ public class GameScreen extends ScreenAdapter{
 
     private MyGame game;
 
+    public static final int WORLD_WIDTH = 100;
+    public static final int WORLD_HEIGHT = 100;
+
     public GameScreen(MyGame myGame) {
         super();
         this.game = myGame;

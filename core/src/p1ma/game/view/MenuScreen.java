@@ -1,6 +1,8 @@
 package p1ma.game.view;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import p1ma.game.MyGame;
 
@@ -10,6 +12,10 @@ import p1ma.game.MyGame;
 public class MenuScreen extends ScreenAdapter{
 
     private MyGame game;
+
+    // camera's attributes
+    private OrthographicCamera camera;
+    private FitViewport viewport;
 
     public MenuScreen(MyGame myGame) {
         super();
