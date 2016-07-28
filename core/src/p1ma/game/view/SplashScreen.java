@@ -19,7 +19,7 @@ public class SplashScreen extends ScreenAdapter{
     private SpriteBatch spriteBatch;
     private Texture image;
     private long timer;
-    private static long duration = 200000; // 2000 ms = 2s
+    private static long duration = 2000; // 2000 ms = 2s
 
     // camera's attributes
     private OrthographicCamera camera;
@@ -61,6 +61,8 @@ public class SplashScreen extends ScreenAdapter{
     @Override
     public void render(float delta) {
         super.render(delta);
+        Gdx.gl.glClearColor(0, 0,0, 0);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
         long time = System.currentTimeMillis();
         if(time <= this.timer) {

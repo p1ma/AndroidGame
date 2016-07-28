@@ -10,15 +10,18 @@ public class TextTranslation {
 
     private static TextTranslation translation = new TextTranslation();
 
-    private HashMap<String, String[]> dico;
+    private HashMap<Locale, String[]> dico;
 
     private Locale language;
 
-    public TextTranslation(){
+    private TextTranslation(){
         language = Locale.getDefault();
+        if(language == null){
+            language = Locale.ENGLISH;
+        }
 
         // Instanciate dico[][]
-        dico = new HashMap<String, String[]>();
+        dico = new HashMap<Locale, String[]>();
 
         // ENGLISH
         String[] translation = new String[6];
@@ -29,7 +32,11 @@ public class TextTranslation {
         translation[4] = "Hard";
         translation[5] = "Robot";
 
-        dico.put("ENGLISH", translation);
+        dico.put(Locale.ENGLISH, translation);
+        dico.put(Locale.CANADA, translation);
+        dico.put(Locale.UK, translation);
+        dico.put(Locale.US, translation);
+
 
         // FRENCH
         translation[0] = "Jouer";
@@ -39,7 +46,7 @@ public class TextTranslation {
         translation[4] = "Difficile";
         translation[5] = "Robot";
 
-        dico.put("FRENCH", translation);
+        dico.put(Locale.FRENCH, translation);
     }
 
     public static TextTranslation getTranslation(){
