@@ -1,4 +1,4 @@
-package p1ma.game.model;
+package p1ma.game.content;
 
 import java.util.HashMap;
 import java.util.Locale;

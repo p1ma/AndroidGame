@@ -5,6 +5,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import p1ma.game.MyGame;
@@ -31,6 +32,9 @@ public class GameScreen extends ScreenAdapter{
     // FPS
     private FPSLogger fps;
 
+    //Sprite and textures
+    private SpriteBatch  spriteBatch;
+
     public GameScreen(MyGame myGame) {
         super();
         this.game = myGame;
@@ -45,6 +49,9 @@ public class GameScreen extends ScreenAdapter{
 
         // FPS
         fps = new FPSLogger();
+
+        //Sprite and textures
+        this.spriteBatch = new SpriteBatch();
 
     }
 
@@ -71,6 +78,9 @@ public class GameScreen extends ScreenAdapter{
         this.camera.update(); // mets à jour la position de la caméra
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        this.spriteBatch.begin();
+
+        this.spriteBatch.end();
         fps.log();
     }
 }

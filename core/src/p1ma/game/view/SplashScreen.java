@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import p1ma.game.MyGame;
+import p1ma.game.content.TextureFactory;
 
 /**
  * Created by p1ma on 28/07/16.
@@ -29,7 +30,7 @@ public class SplashScreen extends ScreenAdapter{
         super();
         this.game = myGame;
         this.spriteBatch = new SpriteBatch();
-        this.image = new Texture(Gdx.files.internal("images/badlogic.jpg"));
+        this.image = TextureFactory.getInstance().getSplashImage();
         this.timer = 0;
 
         this.camera = new OrthographicCamera();

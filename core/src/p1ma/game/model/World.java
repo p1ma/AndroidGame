@@ -19,9 +19,12 @@ public class World {
     public World(GameScreen game){
         this.gameScreen = game;
 
-        /* when HEIGHT = 0 ; cube pop but not visible by the user
-           when HEIGHT = 12 : cube die
+        /*
+        obj
+           when HEIGHT = 0 ; cubes pop but not visibles by the user
+           when HEIGHT = 12 : cubes die
          */
         this.cubes = new Cube[HEIGHT + 2][WIDTH] ;
+
     }
 }

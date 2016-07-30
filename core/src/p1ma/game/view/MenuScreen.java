@@ -15,12 +15,12 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import p1ma.game.MyGame;
-import p1ma.game.model.TextTranslation;
+import p1ma.game.content.TextTranslation;
 
 /**
  * Created by p1ma on 28/07/16.
  *
- * TODO :  SKIN
+ * TODO :  SKIN AND GRAPHIC DESIGN
  */
 public class MenuScreen extends ScreenAdapter{
 
