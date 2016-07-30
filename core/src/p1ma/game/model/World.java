@@ -38,12 +38,11 @@ public class World {
 
         // TEST CUBES (x,y)
         cubes.add(new BlackCube(new Vector2(0,0)));
-        cubes.add(new RedCube(new Vector2(Cube.CUBE_DIM,Cube.CUBE_DIM)));
-        cubes.add(new YellowCube(new Vector2(2 * Cube.CUBE_DIM,2 * Cube.CUBE_DIM)));
-        cubes.add(new BlueCube(new Vector2(3 * Cube.CUBE_DIM,1 * Cube.CUBE_DIM)));
-        cubes.add(new BlackCube(new Vector2(4 * Cube.CUBE_DIM,4 * Cube.CUBE_DIM)));
-        cubes.add(new YellowCube(new Vector2(5 * Cube.CUBE_DIM,5 * Cube.CUBE_DIM)));
-
+        cubes.add(new RedCube(new Vector2(1,1)));
+        cubes.add(new YellowCube(new Vector2(2,2)));
+        cubes.add(new BlueCube(new Vector2(3,3)));
+        cubes.add(new BlackCube(new Vector2(4,4)));
+        cubes.add(new YellowCube(new Vector2(5,5)));
     }
 
     public Iterator<Cube> cubeIterator(){

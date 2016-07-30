@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Iterator;
 
@@ -26,7 +28,7 @@ public class GameScreen extends ScreenAdapter{
 
     // camera's attributes
     private OrthographicCamera camera;
-    private FitViewport viewport;
+    private Viewport viewport;
 
     public static final int WORLD_WIDTH = World.WIDTH * Cube.CUBE_DIM;
     public static final int WORLD_HEIGHT = World.HEIGHT * Cube.CUBE_DIM;
@@ -44,7 +46,7 @@ public class GameScreen extends ScreenAdapter{
 
         // Camera and Viewport settings
         this.camera = new OrthographicCamera();
-        this.viewport = new FitViewport(WORLD_WIDTH,WORLD_HEIGHT,camera);
+        this.viewport = new FitViewport(WORLD_WIDTH,WORLD_HEIGHT, camera);
         this.viewport.apply();
         this.camera.position.set((camera.viewportWidth / 2), (camera.viewportHeight / 2), 0);
         this.camera.update();
@@ -84,7 +86,7 @@ public class GameScreen extends ScreenAdapter{
         Iterator<Cube> ite = world.cubeIterator();
         while(ite.hasNext()){
             Cube c = ite.next();
-            spriteBatch.draw(c.getTexture(), c.getPosition().x, c.getPosition().y,Cube.CUBE_DIM, Cube.CUBE_DIM);
+            spriteBatch.draw(c.getTexture(), c.getPosition().x * 2 * Cube.CUBE_DIM, c.getPosition().y * Cube.CUBE_DIM, 2*Cube.CUBE_DIM, Cube.CUBE_DIM);
         }
         this.spriteBatch.end();
         fps.log();
