@@ -21,8 +21,8 @@ public class World {
     private ArrayList<Cube> cubes;
 
     // width and height
-    public static int HEIGHT = 10;
-    public static int WIDTH = 6;
+    public final static int HEIGHT = 24;
+    public final static int WIDTH = 8;
 
     public World(GameScreen game){
         this.gameScreen = game;
@@ -32,17 +32,34 @@ public class World {
            when HEIGHT = 0 ; cubes pop but not visibles by the user
            when HEIGHT = 12 : cubes die
          */
-        this.table = new Cube[HEIGHT + 2][WIDTH] ;
+        this.table = new Cube[HEIGHT][WIDTH] ;
 
         this.cubes = new ArrayList<Cube>();
 
         // TEST CUBES (x,y)
-        cubes.add(new BlackCube(new Vector2(0,0)));
-        cubes.add(new RedCube(new Vector2(1,1)));
-        cubes.add(new YellowCube(new Vector2(2,2)));
-        cubes.add(new BlueCube(new Vector2(3,3)));
-        cubes.add(new BlackCube(new Vector2(4,4)));
-        cubes.add(new YellowCube(new Vector2(5,5)));
+        //cubes.add(new BlackCube(new Vector2(0,6)));
+        //cubes.add(new RedCube(new Vector2(1,6)));
+        //cubes.add(new YellowCube(new Vector2(2,6)));
+        //cubes.add(new BlueCube(new Vector2(3,6)));
+        //cubes.add(new BlackCube(new Vector2(4,6)));
+        //cubes.add(new YellowCube(new Vector2(5,1)));
+
+        /*
+            Try to complete all screen with cubes
+         */
+        for(int i = 0 ; i < WIDTH ; i++)
+        {
+            for(int j = 0 ; j < HEIGHT ; j++)
+            {
+                if(j%2 == 0) {
+                    if (i % 2 == 0) {
+                        cubes.add(new RedCube(new Vector2(i, j)));
+                    } else {
+                        cubes.add(new BlackCube(new Vector2(i, j)));
+                    }
+                }
+            }
+        }
     }
 
     public Iterator<Cube> cubeIterator(){

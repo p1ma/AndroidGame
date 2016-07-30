@@ -36,4 +36,8 @@ public abstract class Cube {
     public Vector2 getPosition(){
         return position;
     }
+
+    public String toString(){
+        return "( " + position.toString() + " )";
+    }
 }

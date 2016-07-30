@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Iterator;
@@ -30,8 +31,8 @@ public class GameScreen extends ScreenAdapter{
     private OrthographicCamera camera;
     private Viewport viewport;
 
+    public static final int WORLD_HEIGHT = World.HEIGHT * Cube.CUBE_DIM ;
     public static final int WORLD_WIDTH = World.WIDTH * Cube.CUBE_DIM;
-    public static final int WORLD_HEIGHT = World.HEIGHT * Cube.CUBE_DIM;
 
     // FPS
     private FPSLogger fps;
@@ -46,7 +47,8 @@ public class GameScreen extends ScreenAdapter{
 
         // Camera and Viewport settings
         this.camera = new OrthographicCamera();
-        this.viewport = new FitViewport(WORLD_WIDTH,WORLD_HEIGHT, camera);
+        System.out.println("GameScreen (Constructor) \nWorld_Width : " + WORLD_WIDTH + " World_Height : " + WORLD_HEIGHT );
+        this.viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         this.viewport.apply();
         this.camera.position.set((camera.viewportWidth / 2), (camera.viewportHeight / 2), 0);
         this.camera.update();
@@ -82,11 +84,13 @@ public class GameScreen extends ScreenAdapter{
         this.camera.update();
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        this.spriteBatch.setProjectionMatrix(camera.combined);
         this.spriteBatch.begin();
         Iterator<Cube> ite = world.cubeIterator();
         while(ite.hasNext()){
             Cube c = ite.next();
-            spriteBatch.draw(c.getTexture(), c.getPosition().x * 2 * Cube.CUBE_DIM, c.getPosition().y * Cube.CUBE_DIM, 2*Cube.CUBE_DIM, Cube.CUBE_DIM);
+            System.out.println("GameScreen (render) : Cube " + c);
+            spriteBatch.draw(c.getTexture(), c.getPosition().x * Cube.CUBE_DIM, c.getPosition().y * Cube.CUBE_DIM, Cube.CUBE_DIM, Cube.CUBE_DIM);
         }
         this.spriteBatch.end();
         fps.log();
