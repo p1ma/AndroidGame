@@ -1,6 +1,7 @@
 package p1ma.game.model;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 
 import p1ma.game.content.TextureFactory;
 
@@ -9,8 +10,8 @@ import p1ma.game.content.TextureFactory;
  */
 public class YellowCube extends Cube {
 
-    public YellowCube(){
-        super(2);
+    public YellowCube(Vector2 pos){
+        super(2, pos);
     }
 
     @Override

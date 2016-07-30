@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import java.util.Iterator;
+
 import p1ma.game.MyGame;
 import p1ma.game.model.Cube;
 import p1ma.game.model.World;
@@ -26,8 +28,8 @@ public class GameScreen extends ScreenAdapter{
     private OrthographicCamera camera;
     private FitViewport viewport;
 
-    public static final int WORLD_WIDTH = World.WIDTH * Cube.CUBE_WIDTH;
-    public static final int WORLD_HEIGHT = World.HEIGHT  * Cube.CUBE_HEIGHT;
+    public static final int WORLD_WIDTH = World.WIDTH * Cube.CUBE_DIM;
+    public static final int WORLD_HEIGHT = World.HEIGHT * Cube.CUBE_DIM;
 
     // FPS
     private FPSLogger fps;
@@ -42,7 +44,7 @@ public class GameScreen extends ScreenAdapter{
 
         // Camera and Viewport settings
         this.camera = new OrthographicCamera();
-        this.viewport = new FitViewport(GameScreen.WORLD_WIDTH,GameScreen.WORLD_HEIGHT,camera);
+        this.viewport = new FitViewport(WORLD_WIDTH,WORLD_HEIGHT,camera);
         this.viewport.apply();
         this.camera.position.set((camera.viewportWidth / 2), (camera.viewportHeight / 2), 0);
         this.camera.update();
@@ -75,11 +77,15 @@ public class GameScreen extends ScreenAdapter{
     @Override
     public void render(float delta) {
         super.render(delta);
-        this.camera.update(); // mets à jour la position de la caméra
-		Gdx.gl.glClearColor(0, 0, 0, 0);
+        this.camera.update();
+		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.spriteBatch.begin();
-
+        Iterator<Cube> ite = world.cubeIterator();
+        while(ite.hasNext()){
+            Cube c = ite.next();
+            spriteBatch.draw(c.getTexture(), c.getPosition().x, c.getPosition().y,Cube.CUBE_DIM, Cube.CUBE_DIM);
+        }
         this.spriteBatch.end();
         fps.log();
     }

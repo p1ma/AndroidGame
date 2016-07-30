@@ -30,7 +30,7 @@ public class MyGame extends Game {
 		splashScreen = new SplashScreen(this);
 		gameScreen = new GameScreen(this);
 		menuScreen = new MenuScreen(this);
-		setScreen(splashScreen);
+		setScreen(gameScreen);
 	}
 
 	@Override

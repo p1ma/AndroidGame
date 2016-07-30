@@ -10,8 +10,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public abstract class Cube {
 
-    public static int CUBE_WIDTH = 64;
-    public static int CUBE_HEIGHT = 64;
+    public static int CUBE_DIM = 64;
     private int point;
     private float speed;
     private Vector2 position;
@@ -32,5 +31,9 @@ public abstract class Cube {
 
     public void setBoundingBox(Rectangle rec){
         boundingBox = rec;
+    }
+
+    public Vector2 getPosition(){
+        return position;
     }
 }
