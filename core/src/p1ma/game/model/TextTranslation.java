@@ -39,6 +39,7 @@ public class TextTranslation {
 
 
         // FRENCH
+        translation = new String[6];
         translation[0] = "Jouer";
         translation[1] = "Options";
         translation[2] = "Facile";
@@ -54,6 +55,7 @@ public class TextTranslation {
     }
 
     public String getTextPlay(){
+        System.out.println("(TextTranslation - getTextPlay() :\n " + language.toString());
         return dico.get(language)[0];
     }
 

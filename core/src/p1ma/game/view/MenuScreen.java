@@ -19,6 +19,8 @@ import p1ma.game.model.TextTranslation;
 
 /**
  * Created by p1ma on 28/07/16.
+ *
+ * TODO :  SKIN
  */
 public class MenuScreen extends ScreenAdapter{
 
