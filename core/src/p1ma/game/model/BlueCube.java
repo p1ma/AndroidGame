@@ -12,9 +12,15 @@ public class BlueCube extends Cube{
 
     public BlueCube(Vector2 pos){
         super(0,pos);
+        speed = 11.7f; // test
     }
     @Override
     public Texture getTexture() {
         return TextureFactory.getInstance().getBlueCube();
+    }
+
+    public void move(float delta){
+        float movement = (delta * speed);
+        moveDown(movement);
     }
 }

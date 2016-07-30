@@ -12,9 +12,15 @@ public class BlackCube extends Cube{
 
     public BlackCube(Vector2 pos){
         super(-1, pos);
+        speed = 7.81f; // test
     }
     @Override
     public Texture getTexture() {
         return TextureFactory.getInstance().getBlackCube();
+    }
+
+    public void move(float delta) {
+        float movement = (delta * speed);
+        moveDown(movement);
     }
 }

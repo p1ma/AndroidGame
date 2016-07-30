@@ -14,9 +14,6 @@ public class World {
 
     private GameScreen gameScreen;
 
-    // world's elements table
-    private Cube[][] table;
-
     // cubes
     private ArrayList<Cube> cubes;
 
@@ -32,8 +29,6 @@ public class World {
            when HEIGHT = 0 ; cubes pop but not visibles by the user
            when HEIGHT = 12 : cubes die
          */
-        this.table = new Cube[HEIGHT][WIDTH] ;
-
         this.cubes = new ArrayList<Cube>();
 
         // TEST CUBES (x,y)
@@ -66,5 +61,9 @@ public class World {
         return  cubes.iterator();
     }
 
-
+    public void update(float delta){
+        for(Cube c : cubes){
+            c.move(delta);
+        }
+    }
 }

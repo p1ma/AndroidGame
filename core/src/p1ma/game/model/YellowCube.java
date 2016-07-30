@@ -12,10 +12,16 @@ public class YellowCube extends Cube {
 
     public YellowCube(Vector2 pos){
         super(2, pos);
+        speed = 10.0f ; //test
     }
 
     @Override
     public Texture getTexture() {
         return TextureFactory.getInstance().getYellowCube();
+    }
+
+    public void move(float delta){
+        float movement = (delta * speed);
+        moveDown(movement);
     }
 }
