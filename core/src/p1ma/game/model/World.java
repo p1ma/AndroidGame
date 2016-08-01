@@ -25,8 +25,6 @@ public class World {
     // space between 2 cubes
     public final static float SPACE = 0.10f; // test
 
-    // cubes table
-    private Cube[][] cubesTable;
 
     public World(GameScreen game){
         this.gameScreen = game;
@@ -37,7 +35,6 @@ public class World {
            when HEIGHT = 12 : cubes die
          */
         this.cubes = new ArrayList<Cube>();
-        this.cubesTable = new Cube[WIDTH][HEIGHT];
 
         // TEST CUBES (x,y)
         //cubes.add(new BlackCube(new Vector2(0,6)));
@@ -54,9 +51,13 @@ public class World {
         {
             for(int j = 0 ; j < HEIGHT ; j++)
             {
+                Cube c = randomCube(i, j);
                 if(putCube()) {
-                    cubes.add(randomCube(i, j));
+                    c.setVisible(true);
+                }else{
+                    c.setVisible(false);
                 }
+                cubes.add(c);
             }
         }
     }
@@ -76,10 +77,6 @@ public class World {
         updateCubeArray(deadCubes);
     }
 
-    public void addCube(int i, int j, Cube c){
-        this.cubesTable[i][j] = c;
-    }
-
     public Cube randomCube(int i, int j){
         Random r = new Random();
         int choice = r.nextInt(100);
@@ -89,16 +86,17 @@ public class World {
             if choice E [30,70[ => RedCube
             if choice E [70,100] => YellowCube
          */
+        Vector2 position = new Vector2(i + i*SPACE,j + j*SPACE);
         if( choice < 5 ){
-            return new BlueCube(new Vector2(i + i*SPACE,j + j*SPACE));
+            return new BlueCube(position);
         }
         if ( choice >= 5 && choice < 30 ){
-            return new BlackCube(new Vector2(i + i*SPACE,j + j*SPACE));
+            return new BlackCube(position);
         }
         if(choice >= 30 && choice < 70){
-            return new RedCube(new Vector2(i + i*SPACE,j + j*SPACE));
+            return new RedCube(position);
         }
-        return new YellowCube(new Vector2(i + i*SPACE,j + j*SPACE));
+        return new YellowCube(position);
     }
 
     public Cube renewCube(float i, float j){
@@ -110,31 +108,33 @@ public class World {
             if choice E [30,70[ => RedCube
             if choice E [70,100] => YellowCube
          */
+        Vector2 position = new Vector2(i,j);
         if( choice < 5 ){
-            return new BlueCube(new Vector2(i,j));
+            return new BlueCube(position);
         }
         if ( choice >= 5 && choice < 30 ){
-            return new BlackCube(new Vector2(i,j));
+            return new BlackCube(position);
         }
         if(choice >= 30 && choice < 70){
-            return new RedCube(new Vector2(i,j));
+            return new RedCube(position);
         }
-        return new YellowCube(new Vector2(i,j));
+        return new YellowCube(position);
     }
 
     /*
         TEST : 60% of cube per line
      */
     public boolean putCube(){
-        float pourcent = 0.6f * WIDTH;
+        float pourcent = 0.3f * WIDTH;
         Random r = new Random();
         float ind = (r.nextFloat() * 10)%WIDTH;
-        return (ind < pourcent) ? true : false;
+        return (ind < pourcent);
     }
 
     public void setCubesPosition() {
         for(Cube c : cubes){
-            c.incrY(HEIGHT) ; // add c.y += HEIGHT
+            c.incrY((HEIGHT - 1 ) + HEIGHT * SPACE) ; // add c.y += HEIGHT ~ 25.4
+            c.updateSpawn();
         }
     }
 
@@ -144,9 +144,12 @@ public class World {
             if(putCube()){
                 System.out.println("World (updateCubeArray) Respawn at : \n\t " + c.getSpawnPosition());
                 Cube cube = renewCube(c.getSpawnPosition().x, c.getSpawnPosition().y);
-                cube.incrY(HEIGHT);
                 cubes.add(cube);
             }
         }
+    }
+
+    public void verify(float x, float y){
+        System.out.println("World (verifiy) just a test for the moment.");
     }
 }

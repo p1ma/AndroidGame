@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.Iterator;
 
 import p1ma.game.MyGame;
+import p1ma.game.controller.GameListener;
 import p1ma.game.model.Cube;
 import p1ma.game.model.World;
 
@@ -31,7 +32,7 @@ public class GameScreen extends ScreenAdapter{
     private OrthographicCamera camera;
     private Viewport viewport;
 
-    public static final int WORLD_HEIGHT = World.HEIGHT * Cube.CUBE_DIM ;
+    public static final int WORLD_HEIGHT = (World.HEIGHT + 1) * Cube.CUBE_DIM ;
     public static final int WORLD_WIDTH = (World.WIDTH + 1) * Cube.CUBE_DIM;
 
     // FPS
@@ -58,7 +59,7 @@ public class GameScreen extends ScreenAdapter{
 
         //Sprite and textures
         this.spriteBatch = new SpriteBatch();
-
+        Gdx.input.setInputProcessor(new GameListener(world));
     }
 
     @Override
@@ -82,18 +83,20 @@ public class GameScreen extends ScreenAdapter{
     @Override
     public void render(float delta) {
         super.render(delta);
-        this.world.update(delta); // update the world
+        //this.world.update(delta); // update the world
         this.camera.update();
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.spriteBatch.setProjectionMatrix(camera.combined);
         this.spriteBatch.begin();
-        Iterator<Cube> ite = world.cubeIterator();
+        /*Iterator<Cube> ite = world.cubeIterator();
         while(ite.hasNext()){
             Cube c = ite.next();
             //System.out.println("GameScreen (render) : Cube " + c);
-            spriteBatch.draw(c.getTexture(), c.getPosition().x * Cube.CUBE_DIM, c.getPosition().y * Cube.CUBE_DIM, Cube.CUBE_DIM, Cube.CUBE_DIM);
-        }
+            if(c.isVisible()) {
+                spriteBatch.draw(c.getTexture(), c.getPosition().x * Cube.CUBE_DIM, c.getPosition().y * Cube.CUBE_DIM, Cube.CUBE_DIM, Cube.CUBE_DIM);
+            }
+        }*/
         this.spriteBatch.end();
         fps.log();
     }
