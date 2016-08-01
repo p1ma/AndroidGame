@@ -47,11 +47,23 @@ public class World {
         /*
             Try to complete all screen with cubes
          */
-        for(int i = 0 ; i < WIDTH ; i++)
+       /* for(int i = 0 ; i < WIDTH ; i++)
         {
             for(int j = 0 ; j < HEIGHT ; j++)
             {
                 Cube c = randomCube(i, j);
+                if(putCube()) {
+                    c.setVisible(true);
+                }else{
+                    c.setVisible(false);
+                }
+                cubes.add(c);
+            }
+        }*/
+
+        for(int i = 0 ; i < HEIGHT ; i++){
+            for(int j = 0 ; j < WIDTH ; j++){
+                Cube c = randomCube(j, i);
                 if(putCube()) {
                     c.setVisible(true);
                 }else{
@@ -122,10 +134,10 @@ public class World {
     }
 
     /*
-        TEST : 60% of cube per line
+        TEST : 10% of cube per line
      */
     public boolean putCube(){
-        float pourcent = 0.3f * WIDTH;
+        float pourcent = 0.1f * WIDTH;
         Random r = new Random();
         float ind = (r.nextFloat() * 10)%WIDTH;
         return (ind < pourcent);
@@ -139,11 +151,17 @@ public class World {
     }
 
     public void updateCubeArray(ArrayList<Cube> deadCubes){
-        cubes.removeAll(deadCubes);
-        for(Cube c : deadCubes){
-            if(putCube()){
-                System.out.println("World (updateCubeArray) Respawn at : \n\t " + c.getSpawnPosition());
-                Cube cube = renewCube(c.getSpawnPosition().x, c.getSpawnPosition().y);
+        if(deadCubes.size() > 0) {
+            cubes.removeAll(deadCubes);
+            int size = cubes.size() - 1;
+            for (int i = size; i > (size - 8); i--) {
+                Cube c = cubes.get(i);
+                Cube cube = renewCube(c.getPosition().x, c.getPosition().y + SPACE + 1.1f);
+                if(putCube()){
+                    cube.setVisible(true);
+                }else{
+                    cube.setVisible(false);
+                }
                 cubes.add(cube);
             }
         }

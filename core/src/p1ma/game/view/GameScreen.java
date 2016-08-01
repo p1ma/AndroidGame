@@ -6,9 +6,7 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Iterator;
@@ -83,20 +81,20 @@ public class GameScreen extends ScreenAdapter{
     @Override
     public void render(float delta) {
         super.render(delta);
-        //this.world.update(delta); // update the world
+        this.world.update(delta); // update the world
         this.camera.update();
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.spriteBatch.setProjectionMatrix(camera.combined);
         this.spriteBatch.begin();
-        /*Iterator<Cube> ite = world.cubeIterator();
+        Iterator<Cube> ite = world.cubeIterator();
         while(ite.hasNext()){
             Cube c = ite.next();
             //System.out.println("GameScreen (render) : Cube " + c);
             if(c.isVisible()) {
                 spriteBatch.draw(c.getTexture(), c.getPosition().x * Cube.CUBE_DIM, c.getPosition().y * Cube.CUBE_DIM, Cube.CUBE_DIM, Cube.CUBE_DIM);
             }
-        }*/
+        }
         this.spriteBatch.end();
         fps.log();
     }
