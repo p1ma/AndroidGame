@@ -32,7 +32,7 @@ public class GameScreen extends ScreenAdapter{
     private Viewport viewport;
 
     public static final int WORLD_HEIGHT = World.HEIGHT * Cube.CUBE_DIM ;
-    public static final int WORLD_WIDTH = World.WIDTH * Cube.CUBE_DIM;
+    public static final int WORLD_WIDTH = (World.WIDTH + 1) * Cube.CUBE_DIM;
 
     // FPS
     private FPSLogger fps;

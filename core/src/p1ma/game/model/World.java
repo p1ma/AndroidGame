@@ -101,7 +101,7 @@ public class World {
         return new YellowCube(new Vector2(i + i*SPACE,j + j*SPACE));
     }
 
-    public Cube renewCube(int i, int j){
+    public Cube renewCube(float i, float j){
         Random r = new Random();
         int choice = r.nextInt(100);
         /*
@@ -143,7 +143,7 @@ public class World {
         for(Cube c : deadCubes){
             if(putCube()){
                 System.out.println("World (updateCubeArray) Respawn at : \n\t " + c.getSpawnPosition());
-                Cube cube = renewCube((int)c.getSpawnPosition().x, (int)c.getSpawnPosition().y);
+                Cube cube = renewCube(c.getSpawnPosition().x, c.getSpawnPosition().y);
                 cube.incrY(HEIGHT);
                 cubes.add(cube);
             }
