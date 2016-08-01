@@ -71,6 +71,7 @@ public class GameScreen extends ScreenAdapter{
     @Override
     public void show() {
         super.show();
+        world.setCubesPosition();
     }
 
     @Override

@@ -22,6 +22,9 @@ public class World {
     public final static int HEIGHT = 24;
     public final static int WIDTH = 8;
 
+    // space between 2 cubes
+    public final static float SPACE = 0.10f; // test
+
     // cubes table
     private Cube[][] cubesTable;
 
@@ -82,24 +85,30 @@ public class World {
             if choice E [70,100] => YellowCube
          */
         if( choice < 5 ){
-            return new BlueCube(new Vector2(i,j));
+            return new BlueCube(new Vector2(i + i*SPACE,j + j*SPACE));
         }
         if ( choice >= 5 && choice < 30 ){
-            return new BlackCube(new Vector2(i,j));
+            return new BlackCube(new Vector2(i + i*SPACE,j + j*SPACE));
         }
         if(choice >= 30 && choice < 70){
-            return new RedCube(new Vector2(i,j));
+            return new RedCube(new Vector2(i + i*SPACE,j + j*SPACE));
         }
-        return new YellowCube(new Vector2(i,j));
+        return new YellowCube(new Vector2(i + i*SPACE,j + j*SPACE));
     }
 
     /*
-        TEST : 80% of cube per line, so ~6 cubes per line
+        TEST : 60% of cube per line
      */
     public boolean putCube(){
-        float pourcent = 0.8f * WIDTH;
+        float pourcent = 0.6f * WIDTH;
         Random r = new Random();
         float ind = (r.nextFloat() * 10)%WIDTH;
         return (ind < pourcent) ? true : false;
+    }
+
+    public void setCubesPosition() {
+        for(Cube c : cubes){
+            c.setY(HEIGHT) ; // add c.y += HEIGHT
+        }
     }
 }

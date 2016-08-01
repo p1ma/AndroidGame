@@ -51,4 +51,8 @@ public abstract class Cube {
     public void moveDown(float spd){
         this.position.y -= spd;
     }
+
+    public void setY(int y){
+        this.position.y += y;
+    }
 }
