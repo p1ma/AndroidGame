@@ -12,7 +12,6 @@ public class BlueCube extends Cube{
 
     public BlueCube(Vector2 pos){
         super(0,pos);
-        speed = 11.7f; // test
     }
     @Override
     public Texture getTexture() {

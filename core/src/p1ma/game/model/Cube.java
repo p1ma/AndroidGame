@@ -25,6 +25,7 @@ public abstract class Cube {
         this.point = value ;
         this.position = pos;
         this.direction = Direction.DOWN;
+        this.speed = 6.97f;
     }
 
     public abstract Texture getTexture();

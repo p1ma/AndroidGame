@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import p1ma.game.view.GameScreen;
 
@@ -21,6 +22,9 @@ public class World {
     public final static int HEIGHT = 24;
     public final static int WIDTH = 8;
 
+    // cubes table
+    private Cube[][] cubesTable;
+
     public World(GameScreen game){
         this.gameScreen = game;
 
@@ -30,6 +34,7 @@ public class World {
            when HEIGHT = 12 : cubes die
          */
         this.cubes = new ArrayList<Cube>();
+        this.cubesTable = new Cube[WIDTH][HEIGHT];
 
         // TEST CUBES (x,y)
         //cubes.add(new BlackCube(new Vector2(0,6)));
@@ -46,12 +51,8 @@ public class World {
         {
             for(int j = 0 ; j < HEIGHT ; j++)
             {
-                if(j%2 == 0) {
-                    if (i % 2 == 0) {
-                        cubes.add(new RedCube(new Vector2(i, j)));
-                    } else {
-                        cubes.add(new BlackCube(new Vector2(i, j)));
-                    }
+                if(putCube()) {
+                    cubes.add(randomCube(i, j));
                 }
             }
         }
@@ -65,5 +66,40 @@ public class World {
         for(Cube c : cubes){
             c.move(delta);
         }
+    }
+
+    public void addCube(int i, int j, Cube c){
+        this.cubesTable[i][j] = c;
+    }
+
+    public Cube randomCube(int i, int j){
+        Random r = new Random();
+        int choice = r.nextInt(100);
+        /*
+            if choice E [0,5[ => BlueCube
+            if choice E [5,30[ => BlackCube
+            if choice E [30,70[ => RedCube
+            if choice E [70,100] => YellowCube
+         */
+        if( choice < 5 ){
+            return new BlueCube(new Vector2(i,j));
+        }
+        if ( choice >= 5 && choice < 30 ){
+            return new BlackCube(new Vector2(i,j));
+        }
+        if(choice >= 30 && choice < 70){
+            return new RedCube(new Vector2(i,j));
+        }
+        return new YellowCube(new Vector2(i,j));
+    }
+
+    /*
+        TEST : 80% of cube per line, so ~6 cubes per line
+     */
+    public boolean putCube(){
+        float pourcent = 0.8f * WIDTH;
+        Random r = new Random();
+        float ind = (r.nextFloat() * 10)%WIDTH;
+        return (ind < pourcent) ? true : false;
     }
 }
