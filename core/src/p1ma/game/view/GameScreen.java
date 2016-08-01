@@ -91,7 +91,7 @@ public class GameScreen extends ScreenAdapter{
         Iterator<Cube> ite = world.cubeIterator();
         while(ite.hasNext()){
             Cube c = ite.next();
-            System.out.println("GameScreen (render) : Cube " + c);
+            //System.out.println("GameScreen (render) : Cube " + c);
             spriteBatch.draw(c.getTexture(), c.getPosition().x * Cube.CUBE_DIM, c.getPosition().y * Cube.CUBE_DIM, Cube.CUBE_DIM, Cube.CUBE_DIM);
         }
         this.spriteBatch.end();

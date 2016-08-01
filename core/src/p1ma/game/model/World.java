@@ -66,9 +66,14 @@ public class World {
     }
 
     public void update(float delta){
+        ArrayList<Cube> deadCubes = new ArrayList<Cube>();
         for(Cube c : cubes){
             c.move(delta);
+            if(!(c.isAlive())){
+                deadCubes.add(c);
+            }
         }
+        updateCubeArray(deadCubes);
     }
 
     public void addCube(int i, int j, Cube c){
@@ -96,6 +101,27 @@ public class World {
         return new YellowCube(new Vector2(i + i*SPACE,j + j*SPACE));
     }
 
+    public Cube renewCube(int i, int j){
+        Random r = new Random();
+        int choice = r.nextInt(100);
+        /*
+            if choice E [0,5[ => BlueCube
+            if choice E [5,30[ => BlackCube
+            if choice E [30,70[ => RedCube
+            if choice E [70,100] => YellowCube
+         */
+        if( choice < 5 ){
+            return new BlueCube(new Vector2(i,j));
+        }
+        if ( choice >= 5 && choice < 30 ){
+            return new BlackCube(new Vector2(i,j));
+        }
+        if(choice >= 30 && choice < 70){
+            return new RedCube(new Vector2(i,j));
+        }
+        return new YellowCube(new Vector2(i,j));
+    }
+
     /*
         TEST : 60% of cube per line
      */
@@ -108,7 +134,19 @@ public class World {
 
     public void setCubesPosition() {
         for(Cube c : cubes){
-            c.setY(HEIGHT) ; // add c.y += HEIGHT
+            c.incrY(HEIGHT) ; // add c.y += HEIGHT
+        }
+    }
+
+    public void updateCubeArray(ArrayList<Cube> deadCubes){
+        cubes.removeAll(deadCubes);
+        for(Cube c : deadCubes){
+            if(putCube()){
+                System.out.println("World (updateCubeArray) Respawn at : \n\t " + c.getSpawnPosition());
+                Cube cube = renewCube((int)c.getSpawnPosition().x, (int)c.getSpawnPosition().y);
+                cube.incrY(HEIGHT);
+                cubes.add(cube);
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ public abstract class Cube {
     protected float speed;
     private Vector2 position;
     private Rectangle boundingBox;
+    private Vector2 spawnPosition;
 
     public enum Direction{
         LEFT,RIGHT,UP,DOWN
@@ -24,6 +25,7 @@ public abstract class Cube {
     public Cube(int value, Vector2 pos){
         this.point = value ;
         this.position = pos;
+        this.spawnPosition = new Vector2(pos);
         this.direction = Direction.DOWN;
         this.speed = 6.97f;
     }
@@ -52,7 +54,15 @@ public abstract class Cube {
         this.position.y -= spd;
     }
 
-    public void setY(int y){
+    public void incrY(int y){
         this.position.y += y;
+    }
+
+    public boolean isAlive(){
+        return (this.position.y >= -2);
+    }
+
+    public Vector2 getSpawnPosition(){
+        return spawnPosition;
     }
 }
