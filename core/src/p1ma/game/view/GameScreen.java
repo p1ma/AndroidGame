@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Iterator;
@@ -40,6 +41,10 @@ public class GameScreen extends ScreenAdapter{
     //Sprite and textures
     private SpriteBatch  spriteBatch;
 
+    //life and score
+    private int life;
+    private int score;
+
     public GameScreen(MyGame myGame) {
         super();
         this.game = myGame;
@@ -58,6 +63,10 @@ public class GameScreen extends ScreenAdapter{
 
         //Sprite and textures
         this.spriteBatch = new SpriteBatch();
+
+        // life and score
+        life = 3;
+        score = 0;
     }
 
     @Override
@@ -82,21 +91,23 @@ public class GameScreen extends ScreenAdapter{
     @Override
     public void render(float delta) {
         super.render(delta);
-        this.world.update(delta); // update the world
-        this.camera.update();
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        this.spriteBatch.setProjectionMatrix(camera.combined);
-        this.spriteBatch.begin();
-        Iterator<Cube> ite = world.cubeIterator();
-        while(ite.hasNext()){
-            Cube c = ite.next();
-            if(c.isVisible()) {
-                spriteBatch.draw(c.getTexture(), c.getPosition().x * Cube.CUBE_DIM, c.getPosition().y * Cube.CUBE_DIM, Cube.CUBE_DIM, Cube.CUBE_DIM);
+        while(life > 0) {
+            this.world.update(delta); // update the world
+            this.camera.update();
+            Gdx.gl.glClearColor(1, 1, 1, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            this.spriteBatch.setProjectionMatrix(camera.combined);
+            this.spriteBatch.begin();
+            Iterator<Cube> ite = world.cubeIterator();
+            while (ite.hasNext()) {
+                Cube c = ite.next();
+                if (c.isVisible()) {
+                    spriteBatch.draw(c.getTexture(), c.getPosition().x * Cube.CUBE_DIM, c.getPosition().y * Cube.CUBE_DIM, Cube.CUBE_DIM, Cube.CUBE_DIM);
+                }
             }
+            this.spriteBatch.end();
+            fps.log();
         }
-        this.spriteBatch.end();
-        fps.log();
     }
 
     public World getWorld(){
@@ -109,5 +120,13 @@ public class GameScreen extends ScreenAdapter{
 
     public Viewport getViewport(){
         return viewport;
+    }
+
+    public void minusOneLife(){
+        life--;
+    }
+
+    public void addScore(int scr){
+        score += scr;
     }
 }

@@ -1,5 +1,6 @@
 package p1ma.game.controller;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
@@ -41,9 +42,9 @@ public class GameListener implements InputProcessor{
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         System.out.println("GameListener (touchDown) (screenX,screenY) : ( " + screenX + " , " + screenY + " )");
         Camera camera = screen.getCamera();
-        camera.update();
-        Viewport viewport = screen.getViewport();
-        Vector3 position = camera.unproject(new Vector3(screenX, screenY, 0));
+        //camera.update();
+        Vector3 position = new Vector3(screenX,screenY,0);
+        camera.unproject(position);
         System.out.println("GameListener (touchDown) unprojected position : "+position);
         world.verify(position.x, position.y);
         return true;

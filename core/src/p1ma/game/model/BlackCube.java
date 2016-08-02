@@ -11,7 +11,7 @@ import p1ma.game.content.TextureFactory;
 public class BlackCube extends Cube{
 
     public BlackCube(Vector2 pos){
-        super(-1, pos);
+        super(0, pos, false);
     }
     @Override
     public Texture getTexture() {

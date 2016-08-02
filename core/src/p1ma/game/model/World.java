@@ -172,7 +172,13 @@ public class World {
         Vector2 pos = new Vector2(x,y);
         for(Cube c : cubes){
             if(c.collision(pos)){
-                System.out.println("Cube : " + c + "touché.");
+                if(c.isTouchable()){
+                    System.out.println("Cube : " + c + "touché.");
+                    gameScreen.addScore(c.getPoint());
+                }else{
+                    System.out.println("Cube noir touché.");
+                    gameScreen.minusOneLife();
+                }
                 break;
             }
         }

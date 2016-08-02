@@ -11,7 +11,7 @@ import p1ma.game.content.TextureFactory;
 public class YellowCube extends Cube {
 
     public YellowCube(Vector2 pos){
-        super(2, pos);
+        super(2, pos, true);
     }
 
     @Override

@@ -16,6 +16,7 @@ public abstract class Cube {
     private Rectangle boundingBox;
     private Vector2 spawnPosition;
     private boolean visible;
+    private boolean touchable;
 
     public enum Direction{
         LEFT,RIGHT,UP,DOWN
@@ -23,7 +24,7 @@ public abstract class Cube {
 
     private Direction direction;
 
-    public Cube(int value, Vector2 pos){
+    public Cube(int value, Vector2 pos, boolean touch){
         this.point = value ;
         this.position = pos;
         this.spawnPosition = new Vector2(pos);
@@ -31,6 +32,7 @@ public abstract class Cube {
         this.direction = Direction.DOWN;
         this.speed = 4.04f;
         this.visible = true;
+        this.touchable = touch;
     }
 
     public abstract Texture getTexture();
@@ -90,5 +92,9 @@ public abstract class Cube {
 
     public boolean collision(Vector2 pos){
         return boundingBox.contains(pos);
+    }
+
+    public boolean isTouchable(){
+        return touchable;
     }
 }
