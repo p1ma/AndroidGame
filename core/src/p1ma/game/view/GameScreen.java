@@ -2,6 +2,7 @@ package p1ma.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -57,7 +58,6 @@ public class GameScreen extends ScreenAdapter{
 
         //Sprite and textures
         this.spriteBatch = new SpriteBatch();
-        Gdx.input.setInputProcessor(new GameListener(world));
     }
 
     @Override
@@ -71,6 +71,7 @@ public class GameScreen extends ScreenAdapter{
     public void show() {
         super.show();
         world.setCubesPosition();
+        Gdx.input.setInputProcessor(new GameListener(this));
     }
 
     @Override
@@ -90,12 +91,23 @@ public class GameScreen extends ScreenAdapter{
         Iterator<Cube> ite = world.cubeIterator();
         while(ite.hasNext()){
             Cube c = ite.next();
-            //System.out.println("GameScreen (render) : Cube " + c);
             if(c.isVisible()) {
                 spriteBatch.draw(c.getTexture(), c.getPosition().x * Cube.CUBE_DIM, c.getPosition().y * Cube.CUBE_DIM, Cube.CUBE_DIM, Cube.CUBE_DIM);
             }
         }
         this.spriteBatch.end();
         fps.log();
+    }
+
+    public World getWorld(){
+        return world;
+    }
+
+    public Camera getCamera(){
+        return camera;
+    }
+
+    public Viewport getViewport(){
+        return viewport;
     }
 }

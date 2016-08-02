@@ -137,7 +137,6 @@ public class MenuScreen extends ScreenAdapter{
         stage.addActor(this.levelButton);
         stage.addActor(this.optionsButton);
 
-        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -155,6 +154,7 @@ public class MenuScreen extends ScreenAdapter{
     @Override
     public void show() {
         super.show();
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override

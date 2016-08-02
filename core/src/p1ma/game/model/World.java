@@ -156,7 +156,7 @@ public class World {
             int size = cubes.size() - 1;
             for (int i = size; i > (size - 8); i--) {
                 Cube c = cubes.get(i);
-                Cube cube = renewCube(c.getPosition().x, c.getPosition().y + SPACE + 1.1f);
+                Cube cube = renewCube(c.getPosition().x, c.getPosition().y + SPACE + 1);
                 if(putCube()){
                     cube.setVisible(true);
                 }else{
@@ -168,6 +168,13 @@ public class World {
     }
 
     public void verify(float x, float y){
-        System.out.println("World (verifiy) just a test for the moment.");
+        System.out.println("Clicked at (" + x + " , " + y + ")");
+        Vector2 pos = new Vector2(x,y);
+        for(Cube c : cubes){
+            if(c.collision(pos)){
+                System.out.println("Cube : " + c + "touché.");
+                break;
+            }
+        }
     }
 }

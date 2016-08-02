@@ -2,8 +2,12 @@ package p1ma.game.controller;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import p1ma.game.model.World;
+import p1ma.game.view.GameScreen;
 
 /**
  * Created by p1ma on 28/07/16.
@@ -11,9 +15,11 @@ import p1ma.game.model.World;
 public class GameListener implements InputProcessor{
 
     private World world;
+    private GameScreen screen;
 
-    public GameListener(World wd){
-        this.world = wd;
+    public GameListener(GameScreen gameScreen){
+        this.world = gameScreen.getWorld();
+        this.screen = gameScreen;
         System.out.println("GameListener (constructor) Worked !");
     }
     @Override
@@ -34,7 +40,12 @@ public class GameListener implements InputProcessor{
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         System.out.println("GameListener (touchDown) (screenX,screenY) : ( " + screenX + " , " + screenY + " )");
-        world.verify(screenX,screenY);
+        Camera camera = screen.getCamera();
+        camera.update();
+        Viewport viewport = screen.getViewport();
+        Vector3 position = camera.unproject(new Vector3(screenX, screenY, 0));
+        System.out.println("GameListener (touchDown) unprojected position : "+position);
+        world.verify(position.x, position.y);
         return true;
     }
 
@@ -50,9 +61,7 @@ public class GameListener implements InputProcessor{
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        System.out.println("GameListener (touchDown) (screenX,screenY) : ( " + screenX + " , " + screenY + " )");
-        world.verify(screenX, screenY);
-        return true;
+        return false;
     }
 
     @Override
