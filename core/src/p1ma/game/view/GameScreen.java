@@ -91,7 +91,7 @@ public class GameScreen extends ScreenAdapter{
     @Override
     public void render(float delta) {
         super.render(delta);
-        while(life > 0) {
+        if(life > 0) {
             this.world.update(delta); // update the world
             this.camera.update();
             Gdx.gl.glClearColor(1, 1, 1, 1);

@@ -170,16 +170,19 @@ public class World {
     public void verify(float x, float y){
         System.out.println("Clicked at (" + x + " , " + y + ")");
         Vector2 pos = new Vector2(x,y);
-        for(Cube c : cubes){
-            if(c.collision(pos)){
-                if(c.isTouchable()){
-                    System.out.println("Cube : " + c + "touché.");
-                    gameScreen.addScore(c.getPoint());
-                }else{
-                    System.out.println("Cube noir touché.");
-                    gameScreen.minusOneLife();
+        for(Cube c : cubes) {
+            if (c.isVisible()) {
+                if (c.collision(pos)) {
+                    if (c.isTouchable()) {
+                        System.out.println("Cube : " + c + "touché.");
+                        gameScreen.addScore(c.getPoint());
+                    } else {
+                        System.out.println("Cube noir touché.");
+                        gameScreen.minusOneLife();
+                    }
+                    c.setVisible(false);
+                    break;
                 }
-                break;
             }
         }
     }

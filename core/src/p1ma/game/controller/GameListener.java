@@ -41,12 +41,20 @@ public class GameListener implements InputProcessor{
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         System.out.println("GameListener (touchDown) (screenX,screenY) : ( " + screenX + " , " + screenY + " )");
+        // camera
         Camera camera = screen.getCamera();
-        //camera.update();
-        Vector3 position = new Vector3(screenX,screenY,0);
+        Vector3 position = new Vector3(screenX, screenY, 0);
+
+        // viewport
+        Viewport viewport = screen.getViewport();
+        /*camera.unproject(position,
+                viewport.getScreenX(),
+                viewport.getScreenY(),
+                viewport.getWorldWidth(),
+                viewport.getWorldHeight());*/
         camera.unproject(position);
         System.out.println("GameListener (touchDown) unprojected position : "+position);
-        world.verify(position.x, position.y);
+        world.verify((position.x ) / 64, (position.y ) / 64);
         return true;
     }
 
