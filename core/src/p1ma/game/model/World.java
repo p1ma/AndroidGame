@@ -34,10 +34,15 @@ public class World {
     public static long freezeDuration = 5000; // 5000 ms = 5s
     public final static float freeze = 2.02f;
 
+    // combos
+    public int blueCombo;
+
     public World(GameScreen game){
         this.gameScreen = game;
 
         this.speedFrozen = false;
+
+        this.blueCombo = 1; // default
 
         /*
         obj
@@ -90,7 +95,8 @@ public class World {
 
     public void update(float delta){
         long time = System.currentTimeMillis();
-        if(time >= freezeStart + freezeDuration && speedFrozen){
+        if(time >= freezeStart + (freezeDuration * blueCombo) && speedFrozen){
+            System.out.println("COMBO : " + blueCombo);
             speed += freeze;
             speedFrozen = false;
             normalGame();
@@ -131,16 +137,16 @@ public class World {
         Random r = new Random();
         int choice = r.nextInt(100);
         /*
-            if choice E [0,5[ => BlueCube
+            if choice E [0,2[ => BlueCube
             if choice E [5,30[ => BlackCube
             if choice E [30,70[ => RedCube
             if choice E [70,100] => YellowCube
          */
         Vector2 position = new Vector2(i,j);
-        if( choice < 5 ){
+        if( choice < 2 ){
             return new BlueCube(position);
         }
-        if ( choice >= 5 && choice < 30 ){
+        if ( choice >= 2 && choice < 30 ){
             return new BlackCube(position);
         }
         if(choice >= 30 && choice < 70){
@@ -184,14 +190,12 @@ public class World {
     }
 
     public void verify(float x, float y){
-        System.out.println("Clicked at (" + x + " , " + y + ")");
         Vector2 pos = new Vector2(x,y);
         for(Cube c : cubes) {
             if (c.isVisible()) {
                 if (c.collision(pos)) {
                     Cube.Colors color = c.getColor();
                     if (color == Cube.Colors.BLACK) {
-                        System.out.println("Cube noir touché.");
                         gameScreen.minusOneLife();
                     }
                     if (color == Cube.Colors.BLUE){
@@ -199,7 +203,7 @@ public class World {
                             speedFrozen = true;
                             freezeGame();
                         }
-                        System.out.println("Cube bleu : " + c + "touché.");
+                        blueCombo++;
                     }
                     gameScreen.addScore(c.getPoint());
                     c.setVisible(false);
@@ -217,6 +221,7 @@ public class World {
         }
     }
     public void normalGame(){
+        blueCombo = 1;
         for(Cube c : cubes){
             c.setSpeed(speed);
         }

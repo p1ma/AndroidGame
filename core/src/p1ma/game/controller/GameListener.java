@@ -41,7 +41,6 @@ public class GameListener implements InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("screenx : " + screenX + " screenY : " + screenY);
         /*
             NEED MORE TESTS
          */
