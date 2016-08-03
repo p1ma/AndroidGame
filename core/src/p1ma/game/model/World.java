@@ -26,13 +26,13 @@ public class World {
     public final static float SPACE = 0.10f; // test
 
     //cube's speed
-    public static float speed = 4.04f;
+    public static float speed = 3.5f; // might be changed @MenuScreen
 
     // freeze time/duration & coefficient
     public boolean speedFrozen;
     public static long freezeStart;
-    public static long freezeDuration = 5000; // 5000 ms = 5s
-    public final static float freeze = 2.02f;
+    public final static long freezeDuration = 5000; // 5000 ms = 5s
+    public final static float freeze = 1.5f;
 
     // combos
     public int blueCombo;
@@ -230,4 +230,5 @@ public class World {
     public void dispose(){
         cubes.clear();
     }
+
 }

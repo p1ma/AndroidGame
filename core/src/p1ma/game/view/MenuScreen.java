@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import p1ma.game.MyGame;
 import p1ma.game.content.TextTranslation;
+import p1ma.game.model.World;
 
 /**
  * Created by p1ma on 28/07/16.
@@ -118,8 +119,17 @@ public class MenuScreen extends ScreenAdapter{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 // user decided to change the game level,
-                // 0 -> easy , 1 -> medium , 2 -> hard, 3 -> robot : so mod4
+                /* 0 -> easy , 1 -> medium , 2 -> hard, 3 -> robot : so mod4
+
+                            NORMAL FREEZE
+                    EASY     3.5    2.0
+                    NORMAL   4.5    3.0
+                    HARD     5.5    4.0
+                    ROBOT    6.5    5.0
+                */
                 indice++;
+                World.speed = (1.0f * (indice%4)) + 3.5f;
+                System.out.println("Speed : " + World.speed + " - Level : " + levels[(indice % 4)]);
                 levelButton.setText(levels[(indice % 4)]);
             }
         });
