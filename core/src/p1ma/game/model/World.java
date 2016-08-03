@@ -226,4 +226,8 @@ public class World {
             c.setSpeed(speed);
         }
     }
+
+    public void dispose(){
+        cubes.clear();
+    }
 }

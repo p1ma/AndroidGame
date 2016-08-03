@@ -28,6 +28,9 @@ public class MenuScreen extends ScreenAdapter{
     private SpriteBatch spriteBatch;
     private static int indice = 0;
 
+    public static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;,{}\"´`'<>";
+
+
     // camera's attributes
     private OrthographicCamera camera;
     private FitViewport viewport;
@@ -65,6 +68,7 @@ public class MenuScreen extends ScreenAdapter{
         // TEST
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.font = new BitmapFont();
+        //style.font = TrueTypeFontFactory.createBitmapFont(Gdx.files.internal("data/Candy Shop Black.ttf"), FONT_CHARACTERS, 12.5f, 7.5f, 1.0f, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         String play = TextTranslation.getTranslation().getTextPlay();
         this.playButton = new TextButton(play, style); //, skin, "default");
 
@@ -154,6 +158,7 @@ public class MenuScreen extends ScreenAdapter{
     @Override
     public void show() {
         super.show();
+        camera.update();
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -167,5 +172,10 @@ public class MenuScreen extends ScreenAdapter{
     @Override
     public void dispose() {
         super.dispose();
+        this.spriteBatch.dispose();
+        this.stage.dispose();
+        this.playButton.clear();
+        this.levelButton.clear();
+        this.optionsButton.clear();
     }
 }

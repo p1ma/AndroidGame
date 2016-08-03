@@ -28,9 +28,9 @@ public class MyGame extends Game {
 	@Override
 	public void create () {
 		splashScreen = new SplashScreen(this);
-		gameScreen = new GameScreen(this);
+		gameScreen = null;
 		menuScreen = new MenuScreen(this);
-		setScreen(gameScreen);
+		setScreen(menuScreen);
 	}
 
 	@Override
@@ -48,6 +48,10 @@ public class MyGame extends Game {
 	}
 
 	public void setGameScreen(){
+		if(gameScreen != null){
+			gameScreen.dispose();
+		}
+		gameScreen = new GameScreen(this);
 		setScreen(gameScreen);
 	}
 

@@ -57,6 +57,7 @@ public class SplashScreen extends ScreenAdapter{
     public void dispose() {
         super.dispose();
         this.spriteBatch.dispose();
+        this.image.dispose();
     }
 
     @Override

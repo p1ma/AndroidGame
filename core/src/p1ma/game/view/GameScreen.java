@@ -86,6 +86,8 @@ public class GameScreen extends ScreenAdapter{
     @Override
     public void dispose() {
         super.dispose();
+        this.spriteBatch.dispose();
+        this.world.dispose();
     }
 
     @Override
@@ -107,6 +109,9 @@ public class GameScreen extends ScreenAdapter{
             }
             this.spriteBatch.end();
             fps.log();
+        }else{
+            System.out.println("GAME OVER");
+            this.game.setMenuScreen();
         }
     }
 
