@@ -12,6 +12,7 @@ public class YellowCube extends Cube {
 
     public YellowCube(Vector2 pos){
         super(2, pos, true);
+        this.color = Colors.YELLOW;
     }
 
     @Override

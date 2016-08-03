@@ -12,6 +12,7 @@ public class BlueCube extends Cube{
 
     public BlueCube(Vector2 pos){
         super(0,pos, true);
+        this.color = Colors.BLUE;
     }
     @Override
     public Texture getTexture() {

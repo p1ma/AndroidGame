@@ -173,13 +173,15 @@ public class World {
         for(Cube c : cubes) {
             if (c.isVisible()) {
                 if (c.collision(pos)) {
-                    if (c.isTouchable()) {
-                        System.out.println("Cube : " + c + "touché.");
-                        gameScreen.addScore(c.getPoint());
-                    } else {
+                    Cube.Colors color = c.getColor();
+                    if (color == Cube.Colors.BLACK) {
                         System.out.println("Cube noir touché.");
                         gameScreen.minusOneLife();
                     }
+                    if (color == Cube.Colors.BLUE){
+                        System.out.println("Cube bleu : " + c + "touché.");
+                    }
+                    gameScreen.addScore(c.getPoint());
                     c.setVisible(false);
                     break;
                 }

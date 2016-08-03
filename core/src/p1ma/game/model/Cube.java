@@ -22,7 +22,12 @@ public abstract class Cube {
         LEFT,RIGHT,UP,DOWN
     }
 
+    public enum Colors{
+        RED,YELLOW,BLACK,BLUE
+    }
+
     private Direction direction;
+    protected Colors color;
 
     public Cube(int value, Vector2 pos, boolean touch){
         this.point = value ;
@@ -75,7 +80,7 @@ public abstract class Cube {
     }
 
     public Vector2 getSpawnPosition(){
-        return spawnPosition;
+        return this.spawnPosition;
     }
 
     public void updateSpawn(){
@@ -83,18 +88,30 @@ public abstract class Cube {
     }
 
     public boolean isVisible(){
-        return visible;
+        return this.visible;
     }
 
     public void setVisible(boolean b){
-        visible = b;
+        this.visible = b;
     }
 
     public boolean collision(Vector2 pos){
-        return boundingBox.contains(pos);
+        return this.boundingBox.contains(pos);
     }
 
     public boolean isTouchable(){
-        return touchable;
+        return this.touchable;
+    }
+
+    public void setSpeed(float spd){
+        this.speed = spd;
+    }
+
+    public void setDefaultSpeed(){
+        this.speed = 4.04f;
+    }
+
+    public Colors getColor(){
+        return this.color;
     }
 }

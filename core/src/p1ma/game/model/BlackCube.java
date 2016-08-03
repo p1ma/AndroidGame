@@ -12,6 +12,7 @@ public class BlackCube extends Cube{
 
     public BlackCube(Vector2 pos){
         super(0, pos, false);
+        this.color = Colors.BLACK;
     }
     @Override
     public Texture getTexture() {

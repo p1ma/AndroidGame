@@ -12,6 +12,7 @@ public class RedCube extends Cube{
 
     public RedCube(Vector2 pos){
         super(1, pos, true);
+        this.color = Colors.RED;
     }
     @Override
     public Texture getTexture() {
