@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import p1ma.game.model.Cube;
 import p1ma.game.model.World;
 import p1ma.game.view.GameScreen;
 
@@ -40,21 +41,20 @@ public class GameListener implements InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("GameListener (touchDown) (screenX,screenY) : ( " + screenX + " , " + screenY + " )");
+
+        /*
+            NEED MORE TESTS 
+         */
         // camera
         Camera camera = screen.getCamera();
-        Vector3 position = new Vector3(screenX, screenY, 0);
-
-        // viewport
         Viewport viewport = screen.getViewport();
-        /*camera.unproject(position,
+        Vector3 position = new Vector3(screenX, Gdx.graphics.getHeight() - screenY, 0);
+        camera.unproject(position,
                 viewport.getScreenX(),
                 viewport.getScreenY(),
-                viewport.getWorldWidth(),
-                viewport.getWorldHeight());*/
-        camera.unproject(position);
-        System.out.println("GameListener (touchDown) unprojected position : "+position);
-        world.verify((position.x ) / 64, (position.y ) / 64);
+                viewport.getScreenWidth(),
+                viewport.getScreenHeight());
+        world.verify(Math.abs(((position.x * 1) / Cube.CUBE_DIM)), Math.abs(((position.y * 1) / Cube.CUBE_DIM) - (World.HEIGHT + 1)));
         return true;
     }
 
