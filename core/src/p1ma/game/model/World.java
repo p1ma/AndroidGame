@@ -25,9 +25,19 @@ public class World {
     // space between 2 cubes
     public final static float SPACE = 0.10f; // test
 
+    //cube's speed
+    public static float speed = 4.04f;
+
+    // freeze time/duration & coefficient
+    public boolean speedFrozen;
+    public static long freezeStart;
+    public static long freezeDuration = 5000; // 5000 ms = 5s
+    public final static float freeze = 2.02f;
 
     public World(GameScreen game){
         this.gameScreen = game;
+
+        this.speedFrozen = false;
 
         /*
         obj
@@ -79,6 +89,12 @@ public class World {
     }
 
     public void update(float delta){
+        long time = System.currentTimeMillis();
+        if(time >= freezeStart + freezeDuration && speedFrozen){
+            speed += freeze;
+            speedFrozen = false;
+            normalGame();
+        }
         ArrayList<Cube> deadCubes = new ArrayList<Cube>();
         for(Cube c : cubes){
             c.move(delta);
@@ -179,6 +195,10 @@ public class World {
                         gameScreen.minusOneLife();
                     }
                     if (color == Cube.Colors.BLUE){
+                        if(!speedFrozen){
+                            speedFrozen = true;
+                            freezeGame();
+                        }
                         System.out.println("Cube bleu : " + c + "touché.");
                     }
                     gameScreen.addScore(c.getPoint());
@@ -186,6 +206,19 @@ public class World {
                     break;
                 }
             }
+        }
+    }
+
+    public void freezeGame(){
+        speed -= freeze;
+        freezeStart = System.currentTimeMillis();
+        for(Cube c : cubes){
+            c.freezeSpeed(freeze);
+        }
+    }
+    public void normalGame(){
+        for(Cube c : cubes){
+            c.setSpeed(speed);
         }
     }
 }

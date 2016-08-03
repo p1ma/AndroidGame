@@ -35,7 +35,7 @@ public abstract class Cube {
         this.spawnPosition = new Vector2(pos);
         this.boundingBox = new Rectangle(position.x, position.y,1,1);
         this.direction = Direction.DOWN;
-        this.speed = 4.04f;
+        this.speed = World.speed;
         this.visible = true;
         this.touchable = touch;
     }
@@ -107,8 +107,8 @@ public abstract class Cube {
         this.speed = spd;
     }
 
-    public void setDefaultSpeed(){
-        this.speed = 4.04f;
+    public void freezeSpeed(float spd){
+        this.speed -= spd;
     }
 
     public Colors getColor(){
